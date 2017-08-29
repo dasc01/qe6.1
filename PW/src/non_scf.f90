@@ -24,6 +24,10 @@
   USE lsda_mod,             ONLY : lsda, nspin
   USE wvfct,                ONLY : nbnd, et, npwx
   USE wavefunctions_module, ONLY : evc
+!DASb
+  USE input_parameters,     ONLY : scissors_shift, e_scissors, nband_sciss
+  USE scissor,              ONLY : add_sciss
+!DASe
   !
   IMPLICIT NONE
   !
@@ -55,6 +59,10 @@
      conv_elec=.FALSE.
      RETURN
   END IF
+!DASb
+!Add scissor shift if necessary
+  IF(scissors_shift) call add_sciss(et, nbnd, nks, e_scissors, nband_sciss)
+!DASe
   !
   ! ... xk, wk, isk, et, wg are distributed across pools;
   ! ... the first node has a complete copy of xk, wk, isk,

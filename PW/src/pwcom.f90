@@ -412,7 +412,34 @@ MODULE spin_orb
   COMPLEX (DP), ALLOCATABLE :: fcoef(:,:,:,:,:) ! function needed to
                          ! account for spinors.
 END MODULE spin_orb
+!DASb
+!-------------------------------------------------------------------
+MODULE scissor
+  USE kinds, ONLY : DP
+
+contains
+
+  subroutine add_sciss(et,nbnd,nks,e_scissors,nband_sciss)
+
+    implicit none
+    integer::nbnd,nks,nband_sciss
+    real(dp)::et(nbnd,nks),e_scissors
+
+    integer::ik, ibnd
+
+
+    do ik=1,nks
+       do ibnd=nband_sciss+1, nbnd
+          et(ibnd,ik)=et(ibnd,ik)+e_scissors
+       enddo
+    enddo
+
+
+  end subroutine add_sciss
+
+END MODULE scissor
 !
+!DASe
 MODULE pwcom
   !
   USE constants, ONLY : e2, rytoev, pi, tpi, fpi

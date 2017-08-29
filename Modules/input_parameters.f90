@@ -486,6 +486,11 @@ MODULE input_parameters
           !  'none', 'makov-payne', 'martyna-tuckerman', 'esm'
           ! plus ENVIRON-specific:
           !  'slabx', 'slaby', 'slabz', 'pcc'
+!DASb
+        LOGICAL   :: scissors_shift = .false.
+        REAL (DP) :: e_scissors=0.0_DP
+        INTEGER   :: nband_sciss=100000
+!DASe
 
         CHARACTER(len=80) :: vdw_corr = 'none'
           ! semi-empirical van der Waals corrections
@@ -608,7 +613,8 @@ MODULE input_parameters
              esm_a, esm_zb, fcp_mu, fcp_mass, fcp_tempw, fcp_relax_step,      &
              fcp_relax_crit,                                                  &
              space_group, uniqueb, origin_choice, rhombohedral,               &
-             zmon, relaxz, block, block_1, block_2, block_height
+             zmon, relaxz, block, block_1, block_2, block_height,             &
+             scissors_shift, e_scissors, nband_sciss
 
 !=----------------------------------------------------------------------------=!
 !  ELECTRONS Namelist Input Parameters

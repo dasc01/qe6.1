@@ -371,6 +371,10 @@ SUBROUTINE electrons_scf ( printout, exxen )
   USE iso_c_binding,        ONLY : c_int
   !
   USE plugin_variables,     ONLY : plugin_etot
+!DASb
+  USE input_parameters,     ONLY : scissors_shift, e_scissors, nband_sciss
+  USE scissor,              ONLY : add_sciss
+!DASe
   !
   IMPLICIT NONE
   !
@@ -507,6 +511,10 @@ SUBROUTINE electrons_scf ( printout, exxen )
            CALL save_in_electrons (iter-1, dr2, ethr, et )
            GO TO 10
         END IF
+!DASb
+!Add scissor shift if necessary
+        IF(scissors_shift) call add_sciss(et, nbnd, nks, e_scissors, nband_sciss)
+!DASe
         !
         ! ... xk, wk, isk, et, wg are distributed across pools;
         ! ... the first node has a complete copy of xk, wk, isk,
